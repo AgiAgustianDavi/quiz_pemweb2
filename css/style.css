@@ -1,0 +1,91 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.judul {
+    margin-top: 0;
+    padding: 10px;
+    background-color: deepskyblue;
+    text-align: center;
+    color: #f2f2f2;
+}
+
+.teks {
+    text-align: center;
+}
+
+table {
+    text-align: center;
+    width: 100%;
+    margin: 0px auto;
+    padding: 20px;
+    background-color: #d0cfcf;
+    /* border-radius: 10px; */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input, select{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.btn {
+    background-color: deepskyblue;
+    margin-bottom: 10px;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: coral;
+    color: #fff;
+}
+
+a {
+    color: dodgerblue;
+    text-decoration: none;
+}
+
+a:hover{
+    color: firebrick;
+}
+
+.err_msg {
+    color: firebrick;
+    font-style: italic;
+}
+
+.sukses_msg {
+    color: forestgreen;
+    font-style: italic;
+}
