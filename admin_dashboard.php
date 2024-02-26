@@ -8,6 +8,10 @@ require 'functions.php';
 
 $table = query("select * from users order by username ASC");
 
+// jika tombol cari di klik
+if (isset($_POST["cari"])) {
+    $table = search($_POST["keyword"]);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -58,13 +62,22 @@ $table = query("select * from users order by username ASC");
         <h3 class="judul">Daftar User</h3>
     </div>
 
+    <form action="" method="post">
+        <input type="text" name="keyword" autofocus placeholder="Enter keyword for search!" autocomplete="off">
+        <button type="submit" name="cari" class="btn">Search!</button>
+    </form>
+
+    <a href="create.php">Add New User</a>
+
     <table>
         <thead>
             <tr>
-                <th scope="col">No.</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Level</th>
+                <th>No.</th>
+                <th>Aksi</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Level</th>
             </tr>
         </thead>
         <tbody>
@@ -72,8 +85,13 @@ $table = query("select * from users order by username ASC");
             <?php foreach ($table as $t) : ?>
                 <tr>
                     <td><?= $i; ?></td>
+                    <td>
+                        <a href="update.php?id=<?= $t["id"]; ?>">Update</a> |
+                        <a href="delete.php?id=<?= $t["id"]; ?>" onclick="return confirm('yakin?');">Delete</a>
+                    </td>
                     <td><?= $t["username"]; ?></td>
                     <td><?= $t["email"]; ?></td>
+                    <td><?= $t["password"]; ?></td>
                     <td><?= $t["level"]; ?></td>
                 </tr>
                 <?php $i++; ?>
