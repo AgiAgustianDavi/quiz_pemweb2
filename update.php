@@ -15,18 +15,18 @@ if (isset($_POST['submit'])) {
         echo "
         <script>
             alert('data berhasil diubah!');
-            document.location.href = 'admin_dashboard.php';
         </script>
         ";
     } else {
         echo "
         <script>
             alert('data gagal diubah!');
-            document.location.href = 'admin_dashboard.php';
         </script>
         ";
     }
 }
+
+// document.location.href = 'admin_dashboard.php';
 
 ?>
 
@@ -42,21 +42,29 @@ if (isset($_POST['submit'])) {
 
 <body>
     <div class="container">
-        <form action="" method="post" class="container">
+        <form action="" method="post" class="container" enctype="multipart/form-data">
             <h2 class="judul">Update Data</h2>
             <input type="hidden" name="id" value="<?= $table['id']; ?>">
+            <input type="hidden" name="gambarLama" value="<?= $table["gambar"]; ?>">
             <ul>
                 <li>
                     <label for="username">Username</label>
-                    <input type="text" name="username" id="username" placeholder="Enter your username" required value="<?= $table['username']; ?>" >
+                    <input type="text" name="username" id="username" placeholder="Enter your username" required value="<?= $table['username']; ?>">
                 </li>
                 <li>
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email" required value="<?= $table['email']; ?>" >
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required value="<?= $table['email']; ?>">
                 </li>
                 <li>
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your Password" required value="<?= $table['password']; ?>" >
+                    <input type="password" name="password" id="password" placeholder="Enter your Password" required value="<?= $table['password']; ?>">
+                </li>
+                <li>
+                    <label for="gambar">Gambar</label>
+                    <br>
+                    <img src="img/<?= $table['gambar'] ?>" width="75" height="75" alt="">
+                    <br>
+                    <input type="file" name="gambar" id="gambar">
                 </li>
                 <li>
                     <label for="level">Level</label>

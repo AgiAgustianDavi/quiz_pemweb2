@@ -64,7 +64,14 @@ function create($data)
     $password = htmlspecialchars($data["password"]);
     $level = htmlspecialchars($data["level"]);
 
-    mysqli_query($conn, "insert into users(username,email,password,level) values('$username','$email','$password','$level')");
+    // upload gambar
+    $gambar = upload();
+
+    if (!$gambar) {
+        return false;
+    }
+
+    mysqli_query($conn, "insert into users(username,email,password,gambar,level) values('$username','$email','$password','$gambar','$level')");
 
     return mysqli_affected_rows($conn);
 }
@@ -88,7 +95,16 @@ function update($data)
     $password = htmlspecialchars($data["password"]);
     $level = htmlspecialchars($data["level"]);
 
-    mysqli_query($conn, "update users set username='$username',email='$email',password='$password',level='$level' where id=$id");
+    $gambarlama = htmlspecialchars($data["gambarLama"]);
+
+    // cek apakah user pilih gambar baru atau tidak
+    if ($_FILES['gambar']['error'] === 4) {
+        $gambar = $gambarlama;
+    } else {
+        $gambar = upload();
+    }
+
+    mysqli_query($conn, "update users set username='$username',email='$email',password='$password',gambar='$gambar',level='$level' where id=$id");
 
     return mysqli_affected_rows($conn);
 }
@@ -102,4 +118,46 @@ function search($keyword)
                 level LIKE '%$keyword%' 
             ";
     return query($query);
+}
+
+function upload()
+{
+    $namaFile = $_FILES['gambar']['name'];
+    $ukuranFile = $_FILES['gambar']['size'];
+    $error = $_FILES['gambar']['error'];
+    $tmpName = $_FILES['gambar']['tmp_name'];
+
+    // cek apakah tidak ada gambar yang diupload
+    if ($error == 4) {
+        echo "<script>alert('Pilih gambar terlebih dahulu!');</script>";
+        return false;
+    }
+
+    // cek apakah yang diupload gambar atau bukan
+    $ekstensiGambarValid = ['jpg', 'jpeg', 'png']; // jenis gambar yang diizinkan
+    $ekstensiGambar = explode('.', $namaFile); // memecah nama file gambar (ex : agi.jpg menjadi array ['agi','jpg'])
+    $ekstensiGambar = strtolower(end($ekstensiGambar)); 
+     // mendapatkan ekstensi gambar dari nama file
+    // dan fungsi strtolower() untuk mengubah huruf besar menjadi huruf kecil karena JPG dan jpg itu berbeda 
+    // sehingga JPG di kecilkan jadi jpg dan sesuai dengan yang ditentukan diatas
+    // if (!in_array($ekstensiGambar, $ekstensiGambarValid)) { // cek ke-validan file yang di upload (harus gambar)
+    //     echo "<script>alert('ERROR! Anda wajib mengupload gambar dengan type : jpg, jpeg, atau png!');</script>";
+    //     return false;
+    // }
+
+    // cek jika ukuran gambar terlalu besar
+    if ($ukuranFile > 5000000) { // 5.000.000 byte == 5 MB
+        echo "<script>alert('Ukuran file gambar yang di upload terlalu besar!');</script>";
+        return false;
+    }
+
+    // lolos pengecekan, gambar siap diupload
+
+    // generate nama gambar baru
+    $namaFileBaru = uniqid(); // fungsi uniqid() mengenerate angka random
+    $namaFileBaru .='.';
+    $namaFileBaru .= $ekstensiGambar;
+    move_uploaded_file($tmpName, 'img/'.$namaFileBaru);
+
+    return $namaFileBaru;
 }

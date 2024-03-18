@@ -76,7 +76,7 @@ if (isset($_POST["cari"])) {
                 <th>Aksi</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Password</th>
+                <th>Gambar</th>
                 <th>Level</th>
             </tr>
         </thead>
@@ -91,7 +91,7 @@ if (isset($_POST["cari"])) {
                     </td>
                     <td><?= $t["username"]; ?></td>
                     <td><?= $t["email"]; ?></td>
-                    <td><?= $t["password"]; ?></td>
+                    <td><img src="img/<?= $t["gambar"]; ?>" width="100" height="100" alt=""></td>
                     <td><?= $t["level"]; ?></td>
                 </tr>
                 <?php $i++; ?>
