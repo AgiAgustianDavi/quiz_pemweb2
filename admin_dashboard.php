@@ -87,7 +87,8 @@ if (isset($_POST["cari"])) {
                     <td><?= $i; ?></td>
                     <td>
                         <a href="update.php?id=<?= $t["id"]; ?>">Update</a> |
-                        <a href="delete.php?id=<?= $t["id"]; ?>" onclick="return confirm('yakin?');">Delete</a>
+                        <a href="delete.php?id=<?= $t["id"]; ?>" onclick="return confirm('yakin?');">Delete</a> |
+                        <a href="download.php?file=<?= $t["gambar"]; ?>">Download</a>
                     </td>
                     <td><?= $t["username"]; ?></td>
                     <td><?= $t["email"]; ?></td>

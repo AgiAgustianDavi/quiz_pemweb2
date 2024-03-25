@@ -140,10 +140,10 @@ function upload()
      // mendapatkan ekstensi gambar dari nama file
     // dan fungsi strtolower() untuk mengubah huruf besar menjadi huruf kecil karena JPG dan jpg itu berbeda 
     // sehingga JPG di kecilkan jadi jpg dan sesuai dengan yang ditentukan diatas
-    // if (!in_array($ekstensiGambar, $ekstensiGambarValid)) { // cek ke-validan file yang di upload (harus gambar)
-    //     echo "<script>alert('ERROR! Anda wajib mengupload gambar dengan type : jpg, jpeg, atau png!');</script>";
-    //     return false;
-    // }
+    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) { // cek ke-validan file yang di upload (harus gambar)
+        echo "<script>alert('ERROR! Anda wajib mengupload gambar dengan type : jpg, jpeg, atau png!');</script>";
+        return false;
+    }
 
     // cek jika ukuran gambar terlalu besar
     if ($ukuranFile > 5000000) { // 5.000.000 byte == 5 MB
